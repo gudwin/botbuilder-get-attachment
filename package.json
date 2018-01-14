@@ -1,0 +1,22 @@
+{
+  "name": "botbuilder-get-attachment",
+  "version": "0.1.0",
+  "description": "Helper for attachments received by Microsoft Bot Framework",
+  "main": "botbuilder-get-attachment.js",
+  "dependencies": {
+    "es6-promisify": "^5.0.0",
+    "request-promise" : "^4.2.2"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "test": "node ./testRunner.js"
+  },
+  "keywords": [
+    "botbuilder",
+    "bots",
+    "chatbots",
+    "attachment"
+  ],
+  "author": "Dmitry Shevchenko",
+  "license": "MIT"
+}
