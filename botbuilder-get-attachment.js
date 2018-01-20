@@ -28,11 +28,17 @@ var requestWithoutToken = function (url) {
   });
 };
 
-module.exports = function (attachment, message, connector) {
+module.exports = function (session, index  ) {
   return new Promise((resolve, reject) => {
+    if ( !session.message.attachments[index]) {
+      throw new Error(`Unknown attachment index - "${index}"`)
+    }
+    let message = session.message;
+    let attachment = message.attachments[index];
+    let connector = session.connector;
 
     if (attachment.content) {
-      resolve(attachment.content.toString('utf8'));
+      resolve(attachment);
       return;
     }
     let fileDownload = (isTokenRequired(message))
@@ -41,11 +47,13 @@ module.exports = function (attachment, message, connector) {
     fileDownload.then(
       (response) => {
         if (isTokenRequired(message)) {
-          resolve(response.toString());
+          attachment.content = response.toString();
+          resolve(attachment);
         } else {
           // attachments that were received from emulator, were encoded in base64
           // convert from base64
-          resolve(Buffer.from(response.toString(), 'base64').toString());
+          attachment.content = Buffer.from(response.toString(), 'base64').toString();
+          resolve(attachment);
         }
       }, (err) => {
         reject(err);
