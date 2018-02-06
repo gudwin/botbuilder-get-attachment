@@ -44,20 +44,10 @@ module.exports = function (session, index  ) {
     let fileDownload = (isTokenRequired(message))
       ? requestWithToken(attachment.contentUrl, connector)
       : requestWithoutToken(attachment.contentUrl);
-    fileDownload.then(
-      (response) => {
-        if (isTokenRequired(message)) {
-          attachment.content = response.toString();
-          resolve(attachment);
-        } else {
-          // attachments that were received from emulator, were encoded in base64
-          // convert from base64
-          attachment.content = Buffer.from(response.toString(), 'base64').toString();
-          resolve(attachment);
-        }
-      }, (err) => {
-        reject(err);
-      });
+    fileDownload.then((content) => {
+      attachment.content = content;
+      resolve(attachment);
+    },reject);
   });
 
 }

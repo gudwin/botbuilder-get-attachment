@@ -4,9 +4,14 @@ Helper library for attachments retrieval. Supports attachments sent thru Skype, 
 
 Library provides a function with next interface:
 
-**getAttament(session, attachmentId)** - returns Promise that will be resolved with attahment information. Attachment body will be placed into __content__ attribute. Arguments: 
+**getAttament(session, attachmentId)** - returns a Promise. Function arguments: 
 - session - Microsoft Bot Framework [Session](https://docs.botframework.com/en-us/node/builder/chat-reference/classes/_botbuilder_d_.session.html) object
 - attachmentId - index of attachment 
+
+Returned promise will be resolved with object, that will have next attributes:
+- **name** - (String|Buffer) Filename  
+- **contentUrl** - _optional_ (String|Buffer) URL to download attachment
+- **content** - (String|Buffer) Attachment body
 
 
 
@@ -31,7 +36,7 @@ bot.dialog('/', [
   function (session, args) {
     getAttachment(session, 0)
       .then( (result) => {
-        session.endConversation( JSON.stringify(result));
+        session.endConversation( JSON.stringify(result.toString());
       }, (error) => {
         console.error(error);
         session.endConversation( error );
@@ -49,5 +54,6 @@ server.listen(3978, function () {
 
 ## Changelog
 
+- 0.3 - String Buffer returned
 - 0.2 - Simplified interfaces 
 - 0.1 - First version of the library

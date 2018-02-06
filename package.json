@@ -1,12 +1,16 @@
 {
   "name": "botbuilder-get-attachment",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Helper for attachments received by Microsoft Bot Framework",
   "main": "botbuilder-get-attachment.js",
   "dependencies": {
+    "botbuilder": "^3.8.0",
     "es6-promisify": "^5.0.0",
     "request": "^2.83.0",
     "request-promise": "^4.2.2"
+  },
+  "devDependencies" : {
+    "restify": "^4.1.1"
   },
   "scripts": {
     "start": "node index.js",
